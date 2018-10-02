@@ -1,29 +1,53 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	
-</style>
-<title>Trabajando con JSON</title>
-</head>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    nombre: <input type="text" name="" value="" id="nombre">
+    apellido: <input type="text" name="" value="" id="apellido">
+            <input type="submit" name="" value="enviar" onclick="ajax_post();">
 
-<body>
-<div class="container">	
-<h1>Formulario</h1>
-<form>
-<input type="text" id="nombre" placeholder="Nombre" accept="text/plain" class="form-control"><br><br>
-<input type="text" id="apellido" placeholder="Apellido" accept="text/plain" class="form-control"><br><br>
-<input type="number" id="edad" placeholder="Edad" accept="text/plain" class="form-control">
-<br>
-<input type="submit" class="enviar" title="Enviar">
-</form>
-<hr>
-<div class="respuesta"></div>
+<div id="info">
+
 </div>
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/script.js"></script>
-<script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+var resultado = document.getElementById("info");
+
+function ajax_post(){
+
+var xmlhttp;
+
+if(window.XMLHttpRequest){
+	xmlhttp = new XMLHttpRequest();
+}else{
+	xmlhttp = new ActiveXObject("Microsofy.XMLHTTP");
+}
+
+var a = document.getElementById("nombre").value;
+var b = document.getElementById("apellido").value;
+
+var informacion = "nombre="+a+"&apellido="+b;
+
+xmlhttp.onreadystatechange = function(){
+ if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+ 	var mensaje = xmlhttp.responseText;
+	resultado.innerHTML = mensaje;
+ }
+
+}
+
+xmlhttp.open("POST","datos.php",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send(informacion);
+}
+</script>
+
+
+
 
 </body>
 </html>
